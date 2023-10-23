@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 
@@ -28,21 +26,18 @@ public class AppConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean () {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
+        em.setPackagesToScan("web");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(getHibernateProperties());
         return em;
     }
 
     public Properties getHibernateProperties () {
-        try {
             Properties properties = new Properties();
-            InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
-            properties.load(is);
+            properties.setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+            properties.setProperty("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
+            properties.setProperty("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
             return properties;
-        } catch (IOException e) {
-            throw new IllegalArgumentException ("файл отсутствует", e);
-        }
     }
 
     @Bean
