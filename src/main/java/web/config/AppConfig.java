@@ -33,11 +33,11 @@ public class AppConfig {
     }
 
     public Properties getHibernateProperties () {
-            Properties properties = new Properties();
-            properties.setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
-            properties.setProperty("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
-            properties.setProperty("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
-            return properties;
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        properties.setProperty("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
+        properties.setProperty("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
+        return properties;
     }
 
     @Bean

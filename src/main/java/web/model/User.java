@@ -18,8 +18,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String nickname, String mail) {
-        this.id = id;
+    public User(String name, String nickname, String mail) {
         this.name = name;
         this.nickname = nickname;
         this.mail = mail;

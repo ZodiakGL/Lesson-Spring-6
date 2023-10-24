@@ -7,4 +7,6 @@ import java.util.List;
 @Component
 public interface UserService {
     List<User> getAllUsers();
+
+    void addUser(String name, String nickname, String mail);
 }
