@@ -22,8 +22,20 @@ public class UserServiceImp implements UserService{
 
     @Override
     @Transactional
-    public void addUser(String name, String nickname, String mail) {
-        userDao.addUser(name, nickname, mail);
+    public void addUser(User user) {
+        userDao.addUser(user);
 
+    }
+
+    @Override
+    @Transactional
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(int id) {
+        userDao.delete(id);
     }
 }

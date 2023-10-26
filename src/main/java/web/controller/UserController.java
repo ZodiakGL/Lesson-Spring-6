@@ -30,9 +30,20 @@ public class UserController {
 	}
 
 	@PostMapping()
-	public String create(@RequestParam("name") String name, @RequestParam("nickname") String nickname,
-						 @RequestParam("mail") String mail, Model model) {
-		userService.addUser(name, nickname, mail);
+	public String create(@ModelAttribute("user") User user, Model model) {
+		userService.addUser(user);
+		return "redirect:/users";
+	}
+
+	@PostMapping("/edit")
+	public String edit (@RequestParam("userId") int id, Model model) {
+		model.addAttribute("user", userService.getUserById(id));
+		return  "newUser";
+	}
+
+	@PostMapping("/delete")
+	public String delete (@RequestParam("userId") int id) {
+		userService.delete(id);
 		return "redirect:/users";
 	}
 }

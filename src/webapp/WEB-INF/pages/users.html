@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -11,13 +11,29 @@
             <th>Name</th>
             <th>Nickname</th>
             <th>Mail</th>
-        <tr>
-        <tr th:each="users : ${users}">
-            <td th:utext="${users.getName()}"></td>
-            <td th:utext="${users.getNickname()}"></td>
-            <td th:utext="${users.getMail()}"></td>
+            <th>Operations</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.getName()}"></td>
+            <td th:utext="${user.getNickname()}"></td>
+            <td th:utext="${user.getMail()}"></td>
+            <td>
+                <form method="post" th:action="@{/users/edit}">
+                    <input type="hidden" name="userId" th:value="${user.getId()}" />
+                    <input type="submit" value="Edit"/>
+                </form>
+                <form method="post" th:action="@{/users/delete}">
+                    <input type="hidden" name="userId" th:value="${user.getId()}" />
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
         </tr>
     </table>
+    <br>
+
+    <input type="button" value="Add"
+           onclick="window.location.href = '/users/new'"/>
+
 </div>
 </body>
 </html>

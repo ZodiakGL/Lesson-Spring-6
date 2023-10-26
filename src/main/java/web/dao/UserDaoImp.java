@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -19,17 +18,23 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void addUser(String name, String nickname, String mail) {
-
-            Query query = entityManager.createQuery("INSERT into User (name, nickname, mail) VALUES (:name, :nickname, :mail)");
-            query.setParameter("name", name);
-            query.setParameter("nickname", nickname);
-            query.setParameter("mail", mail);
-            query.executeUpdate();
+    public void addUser(User user) {
+        if (user.getId() != 0) {
+            entityManager.merge(user);
+        } else {
+            entityManager.persist(user);
+        }
     }
 
     @Override
-    public void removeUserById(int id) {
+    public User getUserById(int id) {
+        User user = entityManager.find(User.class, id);
+        return user;
+    }
 
+    @Override
+    public void delete(int id) {
+        User userDelete = entityManager.find(User.class, id);
+        entityManager.remove(userDelete);
     }
 }
