@@ -10,6 +10,7 @@ import java.util.List;
 public class UserDaoImp implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public List<User> getAllUsers () {
         String jpql = "SELECT e FROM User e";
